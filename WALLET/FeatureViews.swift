@@ -5,7 +5,7 @@ struct CardsView: View {
     var body: some View { NavigationStack { ScrollView { VStack(alignment: .leading, spacing: 20) {
         Text("Мои карты").font(.largeTitle.bold())
         ScrollView(.horizontal, showsIndicators: false) { HStack(spacing: 14) { ForEach(state.visibleAccounts) { account in
-            VStack(alignment: .leading, spacing: 22) { HStack { Text(account.bankName).font(.headline); Spacer(); Image(systemName: state.theme.symbol) }; Spacer(); Text(account.balance.rubles).font(.title.bold()); Text("•••• (account.maskedCard)").font(.subheadline.monospaced()) }.padding(20).frame(width: 280, height: 170, alignment: .topLeading).foregroundStyle(.black).background(LinearGradient(colors: [state.theme.accent, state.theme.secondary], startPoint: .topLeading, endPoint: .bottomTrailing)).clipShape(RoundedRectangle(cornerRadius: 22))
+            VStack(alignment: .leading, spacing: 22) { HStack { Text(account.bankName).font(.headline); Spacer(); Image(systemName: state.theme.symbol) }; Spacer(); Text(account.balance.rubles).font(.title.bold()); Text("•••• \(account.maskedCard)").font(.subheadline.monospaced()) }.padding(20).frame(width: 280, height: 170, alignment: .topLeading).foregroundStyle(.black).background(LinearGradient(colors: [state.theme.accent, state.theme.secondary], startPoint: .topLeading, endPoint: .bottomTrailing)).clipShape(RoundedRectangle(cornerRadius: 22))
         } } }
         Text("Операции по картам").font(.headline)
         ForEach(state.visibleTransactions) { tx in TransactionRow(transaction: tx, accent: state.theme.accent) }
@@ -26,4 +26,4 @@ struct TransferView: View {
     }.scrollContentBackground(.hidden).background(Color(hex:"080808")).navigationTitle("Перевод").sheet(isPresented: $showReceipt) { DemoReceiptView(amount: amount) } } }
 }
 
-struct DemoReceiptView: View { let amount: String; var body: some View { VStack(spacing: 20) { Image(systemName: "checkmark.circle.fill").font(.system(size: 60)).foregroundStyle(.green); Text("Демонстрационный перевод").font(.title2.bold()); Text("Ивану Петрову отправлено (amount) ₽"); Text("Реальные деньги не переводились").foregroundStyle(.secondary) }.padding(30).presentationDetents([.medium]) } }
+struct DemoReceiptView: View { let amount: String; var body: some View { VStack(spacing: 20) { Image(systemName: "checkmark.circle.fill").font(.system(size: 60)).foregroundStyle(.green); Text("Демонстрационный перевод").font(.title2.bold()); Text("Ивану Петрову отправлено \(amount) ₽"); Text("Реальные деньги не переводились").foregroundStyle(.secondary) }.padding(30).presentationDetents([.medium]) } }
