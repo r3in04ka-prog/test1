@@ -1,0 +1,18 @@
+# Apple / Xcode
+.DS_Store
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.ipa
+*.dSYM.zip
+*.dSYM
+# SwiftPM
+.build/
+.swiftpm/xcode/package.xcworkspace/xcuserdata/
+# secrets and local settings
+.env
+.env.*
+!.env.example
+*.p12
+*.mobileprovision
