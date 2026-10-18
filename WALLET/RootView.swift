@@ -51,7 +51,7 @@ struct DashboardView: View {
             Text("Общий баланс").foregroundStyle(.secondary)
             Text(state.totalBalance.rubles)
                 .font(.system(size: 42, weight: .bold, design: .rounded))
-                .contentTransition(.numericText)
+                .contentTransition(.numericText())
             HStack {
                 Label("Доходы 95 000 ₽", systemImage: "arrow.down.left")
                     .foregroundStyle(state.theme.accent)
@@ -78,7 +78,7 @@ struct DashboardView: View {
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 10)
                                 .background(state.selectedBank == bank ? state.theme.accent : Color(hex: "242424"))
-                                .foregroundStyle(state.selectedBank == bank ? .black : .white)
+                                .foregroundStyle(state.selectedBank == bank ? Color.black : Color.white)
                                 .clipShape(Capsule())
                         }
                         .accessibilityIdentifier("bank_\(bank.rawValue)")
@@ -143,7 +143,7 @@ struct TransactionRow: View {
             Spacer()
             Text(transaction.amount.rubles)
                 .font(.subheadline.weight(.semibold))
-                .foregroundStyle(transaction.amount < 0 ? .white : accent)
+                .foregroundStyle(transaction.amount < 0 ? Color.white : accent)
         }
     }
 }
