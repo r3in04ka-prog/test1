@@ -1,25 +1,23 @@
-name: iOS CI
+name: iOS Build & Test
 
 on:
-  pull_request:
-    branches: [ main ]
   push:
-    branches: [ main ]
+    branches: [ "codex/wallet-milestone1" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  build-and-test:
-    runs-on: macos-latest
+  build:
+    runs-on: macos-14
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Show Xcode version
+      - name: Show Xcode Version
         run: xcodebuild -version
 
-      - name: Build and test WALLET
+      - name: Run Tests
         run: |
           xcodebuild test \
             -project WALLET.xcodeproj \
             -scheme WALLET \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
-            -resultBundlePath TestResults.xcresult
+            -destination 'platform=iOS Simulator,name=iPhone 15'
