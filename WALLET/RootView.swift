@@ -28,6 +28,42 @@ struct DashboardView: View {
     }
 }
 
-struct QuickAction: View { let title: String; let icon: String; let color: Color; var body: some View { VStack(alignment: .leading, spacing: 16) { Image(systemName: icon).foregroundStyle(color).font(.title3); Text(title).font(.subheadline.weight(.semibold)) }.frame(maxWidth: .infinity, alignment: .leading).padding(16).background(Color(hex:"171717")).clipShape(RoundedRectangle(cornerRadius: 16)) } }
-struct TransactionRow: View { let transaction: Transaction; let accent: Color; var body: some View { HStack { Image(systemName: "bag.fill").frame(width: 42, height: 42).background(Color(hex:"242424")).clipShape(Circle()); VStack(alignment: .leading) { Text(transaction.merchant).font(.subheadline.weight(.semibold)); Text(transaction.category).font(.caption).foregroundStyle(.secondary) }; Spacer(); Text(transaction.amount.rubles).font(.subheadline.weight(.semibold)).foregroundStyle(transaction.amount < 0 ? .white : accent) } }
-struct PlaceholderView: View { let title: String; let icon: String; var body: some View { VStack(spacing: 16) { Image(systemName: icon).font(.system(size: 44)); Text(title).font(.title.bold()); Text("Раздел будет доступен в следующем этапе").foregroundStyle(.secondary) }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color(hex:"080808")) } }
+struct QuickAction: View {
+    let title: String
+    let icon: String
+    let color: Color
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Image(systemName: icon).foregroundStyle(color).font(.title3)
+            Text(title).font(.subheadline.weight(.semibold))
+        }.frame(maxWidth: .infinity, alignment: .leading).padding(16).background(Color(hex:"171717")).clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+}
+
+struct TransactionRow: View {
+    let transaction: Transaction
+    let accent: Color
+    var body: some View {
+        HStack {
+            Image(systemName: "bag.fill").frame(width: 42, height: 42).background(Color(hex:"242424")).clipShape(Circle())
+            VStack(alignment: .leading) {
+                Text(transaction.merchant).font(.subheadline.weight(.semibold))
+                Text(transaction.category).font(.caption).foregroundStyle(.secondary)
+            }
+            Spacer()
+            Text(transaction.amount.rubles).font(.subheadline.weight(.semibold)).foregroundStyle(transaction.amount < 0 ? .white : accent)
+        }
+    }
+}
+
+struct PlaceholderView: View {
+    let title: String
+    let icon: String
+    var body: some View {
+        VStack(spacing: 16) {
+            Image(systemName: icon).font(.system(size: 44))
+            Text(title).font(.title.bold())
+            Text("Раздел будет доступен в следующем этапе").foregroundStyle(.secondary)
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color(hex:"080808"))
+    }
+}
