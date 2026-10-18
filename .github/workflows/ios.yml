@@ -1,23 +1,40 @@
-name: iOS Build & Test
+name: iOS build & test
 
 on:
   push:
-    branches: [ "codex/wallet-milestone1" ]
+    branches: [main, codex/wallet-milestone1]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  build:
-    runs-on: macos-14
+  build-and-test:
+    runs-on: macos-15
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Show Xcode Version
-        run: xcodebuild -version
+      - name: Install XcodeGen
+        run: brew install xcodegen
 
-      - name: Run Tests
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Show Xcode & simulator
         run: |
-          xcodebuild test \
-            -project WALLET.xcodeproj \
-            -scheme WALLET \
-            -destination 'platform=iOS Simulator,name=iPhone 15'
+          xcodebuild -version
+          xcrun simctl list devices available | grep "iPhone" || true
+
+      - name: Build (compile only, no signing)
+        run: |
+          xcodebuild -project WALLET.xcodeproj -scheme WALLET \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO build
+
+      - name: Run unit tests
+        run: |
+          xcodebuild -project WALLET.xcodeproj -scheme WALLET \
+            -configuration Debug \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            CODE_SIGNING_ALLOWED=NO test

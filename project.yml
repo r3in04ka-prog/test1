@@ -1,0 +1,47 @@
+name: WALLET
+options:
+  bundleIdPrefix: com.wallet
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+targets:
+  WALLET:
+    type: application
+    platform: iOS
+    sources:
+      - WALLET
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wallet.demo
+        PRODUCT_NAME: WALLET
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+  WALLETTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - WALLETTests
+    dependencies:
+      - target: WALLET
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wallet.demo.tests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  WALLET:
+    build:
+      targets:
+        WALLET: all
+        WALLETTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - name: WALLETTests
