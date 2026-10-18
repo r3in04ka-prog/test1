@@ -5,8 +5,8 @@ struct RootView: View {
     var body: some View {
         TabView(selection: $state.selectedTab) {
             DashboardView().tabItem { Label("Главная", systemImage: "house.fill") }.tag(0)
-            PlaceholderView(title: "Карты", icon: "creditcard.fill").tabItem { Label("Карты", systemImage: "creditcard.fill") }.tag(1)
-            PlaceholderView(title: "Переводы", icon: "arrow.left.arrow.right").tabItem { Label("Переводы", systemImage: "arrow.left.arrow.right") }.tag(2)
+            CardsView().tabItem { Label("Карты", systemImage: "creditcard.fill") }.tag(1)
+            TransferView().tabItem { Label("Переводы", systemImage: "arrow.left.arrow.right") }.tag(2)
             PlaceholderView(title: "Аналитика", icon: "chart.bar.fill").tabItem { Label("Аналитика", systemImage: "chart.bar.fill") }.tag(3)
             PlaceholderView(title: "Профиль", icon: "person.fill").tabItem { Label("Профиль", systemImage: "person.fill") }.tag(4)
         }.tint(state.theme.accent).preferredColorScheme(.dark)
