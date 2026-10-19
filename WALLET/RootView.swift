@@ -105,7 +105,12 @@ struct DashboardView: View {
                 Text("Все").foregroundStyle(state.theme.accent).font(.subheadline)
             }
             ForEach(state.visibleTransactions) { tx in
-                TransactionRow(transaction: tx, accent: state.theme.accent)
+                NavigationLink {
+                    TransactionDetailView(transaction: tx)
+                } label: {
+                    TransactionRow(transaction: tx, accent: state.theme.accent)
+                }
+                .buttonStyle(.plain)
             }
         }
     }

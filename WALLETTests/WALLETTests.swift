@@ -17,4 +17,13 @@ final class WALLETTests: XCTestCase {
         XCTAssertEqual(BankTheme.forBank(.tbank).accent, Color(hex: "FFD428"))
         XCTAssertEqual(BankTheme.forBank(.ozon).accent, Color(hex: "005BFF"))
     }
+
+    @MainActor func testTransferValidation() {
+        let state = AppState()
+        XCTAssertTrue(state.isValidTransfer(amount: 1000, sourceID: "sber-main"))
+        XCTAssertFalse(state.isValidTransfer(amount: 0, sourceID: "sber-main"))
+        XCTAssertFalse(state.isValidTransfer(amount: -100, sourceID: "sber-main"))
+        XCTAssertFalse(state.isValidTransfer(amount: 999999, sourceID: "sber-main"))
+        XCTAssertFalse(state.isValidTransfer(amount: 100, sourceID: "unknown"))
+    }
 }
